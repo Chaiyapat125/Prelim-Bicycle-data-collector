@@ -59,10 +59,8 @@ void LL::printList() {
              << " -> " << t->getEndStation()
              << " | " << t->getDistance() << " km"
              << " | " << t->getCO2saved() << " kg CO2]";
-        cout << " -> ";
         t = t->getNext();
     }
-    cout << "NULL" << endl;
 }
 
 LL::~LL() {
