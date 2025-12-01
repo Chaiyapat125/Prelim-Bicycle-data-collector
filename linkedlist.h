@@ -7,7 +7,8 @@ using namespace std;
 class LinkedList {
 private:
     Node* head;
-    const float RATE = 0.21f; // C02 rate
+    const float RATE = 0.21f; // Normal bike CO2 rate
+
 public:
     LinkedList() {
         head = nullptr;
@@ -26,6 +27,7 @@ public:
 
         Node* node = new Node(sid, name, start, end, dist, co2);
 
+        // insert at front (easy)
         node->setNext(head);
         head = node;
 
