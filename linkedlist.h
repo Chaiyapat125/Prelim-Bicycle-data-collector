@@ -1,79 +1,54 @@
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
-
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "node.h"
 using namespace std;
 
-typedef Node* nodePtr;
-
-class LL {
-
+class LinkedList {
 private:
-    nodePtr hol;
-    int size;
-
+    Node* head;
+    const float RATE = 0.21f; // C02 rate
 public:
-    LL();
-    void insert_node(string, string, string, float);
-    void printList();
-    ~LL();
+    LinkedList() {
+        head = nullptr;
+    }
+
+    ~LinkedList() {
+        while (head != nullptr) {
+            Node* t = head;
+            head = head->getNext();
+            delete t;
+        }
+    }
+
+    void addTrip(string sid, string name, string start, string end, float dist) {
+        float co2 = dist * RATE;
+
+        Node* node = new Node(sid, name, start, end, dist, co2);
+
+        node->setNext(head);
+        head = node;
+
+        cout << "Trip recorded!\n";
+    }
+
+    void showTrips() {
+        if (head == nullptr) {
+            cout << "No trip history.\n";
+            return;
+        }
+
+        cout << fixed << setprecision(2);
+        cout << "=== Trip History ===\n";
+
+        Node* cur = head;
+        while (cur != nullptr) {
+            cout << cur->getStudentID() << " " << cur->getName()
+                 << " | " << cur->getStart() << "->" << cur->getEnd()
+                 << " | " << cur->getDistance() << " km"
+                 << " | " << cur->getCO2() << " kg CO2\n";
+            cur = cur->getNext();
+        }
+    }
 };
 
-
-LL::LL() {
-    hol = nullptr;
-    size = 0;
-}
-
-void LL::insert_node(string name, string start, string end, float dist) {
-
-
-    float co2 = dist * 0.21f;
-
-    if (hol == nullptr) {
-        hol = new Node(name, start, end, dist, co2);
-    }
-    else {
-        nodePtr t = hol;
-        while (t->getNext() != nullptr) {
-            t = t->getNext();
-        }
-        t->setNext(new Node(name, start, end, dist, co2));
-    }
-    size++;
-}
-
-void LL::printList() {
-    nodePtr t = hol;
-
-    if (t == nullptr) {
-        cout << "Empty List" << endl;
-        return;
-    }
-
-    while (t != nullptr) {
-        cout << "[" << t->getStudentName()
-             << " | " << t->getStartStation()
-             << " -> " << t->getEndStation()
-             << " | " << t->getDistance() << " km"
-             << " | " << t->getCO2saved() << " kg CO2]";
-        cout << " -> ";
-        t = t->getNext();
-    }
-    cout << "NULL" << endl;
-}
-
-LL::~LL() {
-    nodePtr current = hol;
-    while (current != nullptr) {
-        nodePtr next = current->getNext();
-        delete current;
-        current = next;
-    }
-    hol = nullptr;
-    size = 0;
-}
-
-#endif

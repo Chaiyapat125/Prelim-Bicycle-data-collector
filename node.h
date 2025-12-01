@@ -1,51 +1,33 @@
-#ifndef NODE_H
-#define NODE_H
-
-#include <iostream>
 #include <string>
 using namespace std;
 
 class Node {
 private:
-    string studentName;
-    string startStation;
-    string endStation;
-    float distance;
-    float CO2saved;
+    string studentID, name;
+    string startStation, endStation;
+    float distance, co2Saved;
     Node* next;
 
 public:
-    Node(string name, string start, string end, float dist, float co2) 
+    Node(string sid, string n, string s, string e, float dist, float co2) 
     {
-        studentName = name;
-        startStation = start;
-        endStation = end;
+        studentID = sid;
+        name = n;
+        startStation = s;
+        endStation = e;
         distance = dist;
-        CO2saved = co2;
+        co2Saved = co2;
         next = nullptr;
     }
 
-  
-    string getStudentName() { 
-        return studentName; 
-    }
-    string getStartStation() { 
-        return startStation; 
-    }
-    string getEndStation() { 
-        return endStation; 
-    }
-    float getDistance() { 
-        return distance; 
-    }
-    float getCO2saved() { 
-        return CO2saved; 
-    }
-    Node* getNext() { 
-        return next; 
-    }
+    void setNext(Node* n) { next = n; }
+    Node* getNext() { return next; }
 
-    void setNext(Node* ptr) { next = ptr; }
+    string getStudentID() { return studentID; }
+    string getName() { return name; }
+    string getStart() { return startStation; }
+    string getEnd() { return endStation; }
+    float getDistance() { return distance; }
+    float getCO2() { return co2Saved; }
 };
 
-#endif
