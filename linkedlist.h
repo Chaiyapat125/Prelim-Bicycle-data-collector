@@ -3,12 +3,11 @@
 #include <iomanip>
 #include "node.h"
 using namespace std;
-#define CO2_RATE 0.21
 
 class LinkedList {
 private:
     Node* head;
-
+    const float RATE = 0.21f; // Normal bike CO2 rate
 
 public:
     LinkedList() {
@@ -24,13 +23,24 @@ public:
     }
 
     void addTrip(string sid, string name, string start, string end, float dist) {
-        float co2 = dist * CO2_RATE;
-
+        float co2 = dist * RATE;
         Node* node = new Node(sid, name, start, end, dist, co2);
 
-        // insert at front (easy)
-        node->setNext(head);
-        head = node;
+        if (head == nullptr || sid < head->getStudentID()) {
+            node->setNext(head);
+            head = node;
+            cout << "Trip recorded!\n";
+            return;
+        }
+
+        Node* cur = head;
+        while (cur->getNext() != nullptr &&
+               cur->getNext()->getStudentID() <= sid) {
+            cur = cur->getNext();
+        }
+
+        node->setNext(cur->getNext());
+        cur->setNext(node);
 
         cout << "Trip recorded!\n";
     }
@@ -42,7 +52,7 @@ public:
         }
 
         cout << fixed << setprecision(2);
-        cout << "=== Trip History ===\n";
+        cout << "=== Trip History (Sorted by StudentID) ===\n";
 
         Node* cur = head;
         while (cur != nullptr) {
@@ -54,4 +64,3 @@ public:
         }
     }
 };
-
