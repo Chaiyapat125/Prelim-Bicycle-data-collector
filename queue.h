@@ -4,19 +4,21 @@ using namespace std;
 
 const int MAX_BIKES = 10;
 
-struct BorrowNode {
+class BorrowNode {
+public:
     string studentID;
     string name;
     int bikeID;
     BorrowNode* next;
-
-    BorrowNode(string sid, string n, int bid) {
-        studentID = sid;
-        name = n;
-        bikeID = bid;
-        next = nullptr;
-    }
+    BorrowNode(string sid, string n, int bid);
 };
+
+    BorrowNode::BorrowNode(string sid, string n, int bid) {
+    studentID = sid;
+    name = n;
+    bikeID = bid;
+    next = nullptr;
+}
 
 class Queue {
 private:

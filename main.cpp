@@ -4,19 +4,17 @@ using namespace std;
 #include "queue.h"
 #include "linkedlist.h"
 
-
 bool validID(string id) {
-    if (id.length() != 7) 
+    if (id.length() != 7)
         return false;
     for (int i = 0; i < 7; i++) {
-        if (id[i] < '0' || id[i] > '9') 
-        return false;
+        if (id[i] < '0' || id[i] > '9')
+            return false;
     }
     return true;
 }
 
-float getDistance(string s, string e) 
-    {
+float getDistance(string s, string e) {
     if (s == "A" && e == "B") return 1.2f; // ระยะทางของ A -> B นะ 1.2 km
     if (s == "B" && e == "A") return 1.2f; // B -> A นะ 1.2 km
     if (s == "A" && e == "C") return 2.5f; // A -> C นะ 2.5 km
@@ -25,8 +23,7 @@ float getDistance(string s, string e)
     if (s == "C" && e == "B") return 1.6f; // C -> A นะ 1.6 km
 
     return -1.0f; // สำหรับ not found เพราะปกติจะ ไม่ติดลบ
-
-    }
+}
 
 int main() {
     Queue borrowed;
@@ -88,24 +85,28 @@ int main() {
             string sid, name;
             bool ok = borrowed.returnBike(bikeID, sid, name);
 
-            if (!ok) 
-            {
+            if (!ok) {
                 cout << "ERROR: This BikeID is not currently borrowed.\n";
                 continue;
             }
 
+        
             string start, end;
-            cout << "Start station (A/B/C): ";
-            cin >> start;
-            cout << "End station (A/B/C): ";
-            cin >> end;
+            float dist;
 
-            float dist = getDistance(start, end);
-            if (dist < 0) {
-                cout << "Distance not found. Enter distance (km): ";
-                cin >> dist;
+            while (true) {
+                cout << "Start station (A/B/C): ";
+                cin >> start;
+                cout << "End station (A/B/C): ";
+                cin >> end;
+
+                dist = getDistance(start, end);
+
+                if (dist >= 0) break;
+
+                cout << "Distance not found. Please type again (A/B/C).\n";
             }
-
+    
             trips.addTrip(sid, name, start, end, dist);
         }
         else if (choice == 3) {
