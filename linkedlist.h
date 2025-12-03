@@ -3,11 +3,12 @@
 #include <iomanip>
 #include "node.h"
 using namespace std;
+#define CO2_RATE 0.21
 
 class LinkedList {
 private:
     Node* head;
-    const float RATE = 0.21f; // Normal bike CO2 rate
+
 
 public:
     LinkedList() {
@@ -23,7 +24,7 @@ public:
     }
 
     void addTrip(string sid, string name, string start, string end, float dist) {
-        float co2 = dist * RATE;
+        float co2 = dist * CO2_RATE;
 
         Node* node = new Node(sid, name, start, end, dist, co2);
 
