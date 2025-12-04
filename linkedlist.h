@@ -34,8 +34,7 @@ public:
         }
 
         Node* cur = head;
-        while (cur->getNext() != nullptr &&
-               cur->getNext()->getStudentID() <= sid) {
+        while (cur->getNext() != nullptr && cur->getNext()->getStudentID() <= sid) {
             cur = cur->getNext();
         }
 
