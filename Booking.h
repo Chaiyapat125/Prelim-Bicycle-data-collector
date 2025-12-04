@@ -60,7 +60,6 @@ public:
 
         BorrowNode* node = new BorrowNode(sid, name, bikeID);
 
-        // insert at front (easy)
         node->next = head;
         head = node;
 
