@@ -58,7 +58,7 @@ public:
             cout << cur->getStudentID() << " " << cur->getName()
                  << " | " << cur->getStart() << "->" << cur->getEnd()
                  << " | " << cur->getDistance() << " km"
-                 << " | " << cur->getCO2() << " kg CO2\n";
+                 << " | " << cur->getCO2() << " kg CO2 saved\n";
             cur = cur->getNext();
         }
     }
